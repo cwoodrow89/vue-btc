@@ -9,6 +9,11 @@ import 'buefy/dist/buefy.css'
 import 'vue-material-design-icons/styles.css'
 import '@mdi/font/css/materialdesignicons.min.css'
 
+import 'vue-resize/dist/vue-resize.css'
+import VueResize from 'vue-resize'
+
+Vue.use(VueResize)
+
 Vue.use(Buefy)
 
 Vue.config.productionTip = false
