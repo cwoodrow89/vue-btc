@@ -16,6 +16,9 @@ export default new Vuex.Store({
     SET_CRYPTO (state, crypto) {
       state.crypto = crypto
     },
+    SET_FIAT (state, fiat) {
+      state.fiat = fiat
+    },
     SET_LOADING (state, loading) {
       state.loading = loading
     }
@@ -31,7 +34,17 @@ export default new Vuex.Store({
           commit('SET_CRYPTO', crypto);
           commit('SET_LOADING', false);
         })
+    },
+    loadFiat ({ commit }) {
+      commit('SET_LOADING', true);
+
+      axios
+        .get('https://openexchangerates.org/api/latest.json?app_id=b8bedd7066cf46dd952512d8d6df0242')
+        .then(r => r.data)
+        .then(fiat => {
+          commit('SET_FIAT', fiat);
+          commit('SET_LOADING', false);
+        })
     }
   }
 })
-// https://openexchangerates.org/api/latest.json?app_id=b8bedd7066cf46dd952512d8d6df0242
