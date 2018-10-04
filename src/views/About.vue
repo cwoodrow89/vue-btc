@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <br>
+    <h1>Data retrieved from coindesk.com and openexchangerates.org</h1>
   </div>
 </template>

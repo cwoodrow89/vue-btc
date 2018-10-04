@@ -48,10 +48,11 @@ export default {
     computed: {
     ...mapState([
       'crypto',
-      'fiat'
+      'fiat',
+      'loadingApi'
     ]),
     loading() {
-        return this.crypto && this.fiat && this.btcusd && this.gbpusd ? false : true;
+        return this.crypto && this.fiat && this.btcusd && this.gbpusd && !this.loadingApi ? false : true;
     },
     roundBtcGbp() {
         let rate = this.btcusd / this.gbpusd;
@@ -69,16 +70,18 @@ export default {
   },
   watch: {
       crypto: function() {
-          let ratestring = this.crypto.bpi.USD.rate.replace(',', '');
-          let ratenum = parseFloat(ratestring);
-        //   let roundedrate = Number(Math.round(ratenum+'e2')+'e-2');
-          this.btcusd = ratenum; 
+          if(this.crypto) {
+            let ratestring = this.crypto.bpi.USD.rate.replace(',', '');
+            let ratenum = parseFloat(ratestring);
+            this.btcusd = ratenum;  
+          }
       },
       fiat: function() {
-          let rate = this.fiat.rates.GBP;
-          let invertrate = 1/ rate;
-        //   let roundedrate = Number(Math.round(invertrate+'e2')+'e-2');
-          this.gbpusd = invertrate;
+          if(this.fiat) {
+            let rate = this.fiat.rates.GBP;
+            let invertrate = 1/ rate;
+            this.gbpusd = invertrate;
+          }
       }
   }
 }

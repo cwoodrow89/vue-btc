@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     crypto: {},
     fiat: {},
-    loading: false
+    loadingApi: false
   },
   mutations: {
     SET_CRYPTO (state, crypto) {
@@ -20,7 +20,7 @@ export default new Vuex.Store({
       state.fiat = fiat
     },
     SET_LOADING (state, loading) {
-      state.loading = loading
+      state.loadingApi = loading
     }
   },
   actions: {

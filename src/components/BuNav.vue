@@ -41,6 +41,9 @@
             </div>
 
             <div class="navbar-end">
+                <div v-if="home" :class="{spin : spin}" @animationend="spin = false" class="navbar-item" @click="refresh">
+                    <b-icon icon="refresh" size="is-medium"></b-icon>
+                </div>
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="button is-primary-invert">
@@ -67,12 +70,25 @@ export default {
     },
     data() {
         return {
-            isActive: false
+            isActive: false,
+            spin: false
         }
     },
     watch: {
         resize() {
             this.isActive = false;
+        }
+    },
+    computed:{
+        home(){
+            return this.$route.path === '/'
+        }
+    },
+    methods: {
+        refresh() {
+            this.spin = true;
+            this.$store.dispatch('loadCrypto');
+            this.$store.dispatch('loadFiat');
         }
     }
 }
@@ -103,6 +119,18 @@ export default {
 
 .burger {
     color: white;
+}
+
+.spin {
+    animation-name: spin;
+    animation-duration: 600ms;
+    animation-iteration-count: once;
+    animation-timing-function: ease-out;
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
 }
 
 </style>
